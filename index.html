@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111111">\n<link rel="manifest" href="manifest.webmanifest">\n<meta name="mobile-web-app-capable" content="yes">\n<meta name="apple-mobile-web-app-capable" content="yes">
+<title>1 REAL — Cartas de Futebol</title>
+<style>
+:root{--gold:#e7bd55;--bg:#090a0d;--panel:#17191f;--muted:#a8abb4}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top,#292116,#090a0d 48%);color:#f7f4ec;font-family:system-ui,Arial,sans-serif}
+header{padding:22px 18px 14px;text-align:center;border-bottom:1px solid #59451e}
+.logo{font-size:34px;font-weight:950;letter-spacing:4px;color:var(--gold);text-shadow:0 0 18px #a77b28}
+.sub{font-size:10px;letter-spacing:3px;color:#c9c2b2}
+.wrap{max-width:760px;margin:auto;padding:16px}
+.balances{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.balance,.panel{background:linear-gradient(145deg,#20232b,#121419);border:1px solid #51401e;border-radius:15px;padding:14px}
+.balance b{display:block;color:var(--gold);font-size:20px}.balance small{color:var(--muted)}
+nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin:12px 0} nav button{font-size:12px;padding:10px 4px}
+button{border:1px solid #755b27;background:#24201a;color:#f6e6bc;padding:11px 8px;border-radius:11px;font-weight:750}
+button:active{transform:scale(.98)}button.primary{background:linear-gradient(135deg,#f1d27d,#a97820);color:#17120a;border:0}
+button:disabled{opacity:.4}
+h2{font-size:18px;color:var(--gold);margin:0 0 12px}
+.panel{margin:12px 0}
+.mission,.pack,.storeitem{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #34363b}
+.mission:last-child,.pack:last-child,.storeitem:last-child{border:0}
+.mission small,.pack small,.storeitem small{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+.cardgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.playercard{position:relative;overflow:hidden;border-radius:14px;padding:0;text-align:center;border:2px solid #d2a63e;background:linear-gradient(155deg,#4b391c,#17191f 60%);min-height:260px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 0 14px #b8862b44}.playercard .portrait{width:100%;height:205px;object-fit:cover;object-position:center 20%;display:block;filter:saturate(.95)}.playercard .cardtop{position:absolute;top:9px;left:10px;right:10px;display:flex;justify-content:space-between;align-items:flex-start;text-shadow:0 2px 5px #000}.playercard .rating{font-size:26px;color:#ffe08a;font-weight:950;background:#090a0dcc;border-radius:8px;padding:3px 7px}.playercard .pos{font-weight:900;color:white;background:#090a0dcc;border-radius:6px;padding:3px 6px;font-size:12px}.playercard .cardbottom{background:linear-gradient(transparent,#08090df2 28%);margin-top:-55px;position:relative;padding:35px 8px 10px}.playercard .name{font-weight:900;font-size:16px;text-shadow:0 2px 4px #000}.playercard .meta{font-size:11px;color:#f2dba5}.playercard .tag{position:absolute;bottom:7px;right:7px;background:#17130be8}
+.playercard .rating{font-size:28px;color:var(--gold);font-weight:900}.playercard .name{font-weight:850;font-size:16px}.playercard .meta{font-size:11px;color:#d8cba9}
+.tag{display:inline-block;border:1px solid #8e6c2c;color:#f1d27d;border-radius:30px;padding:3px 8px;font-size:10px}
+.notice{font-size:12px;color:var(--muted);line-height:1.5}
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#f1d27d;color:#17120a;padding:11px 16px;border-radius:10px;font-weight:800;display:none;max-width:90%;text-align:center}
+.hidden{display:none}
+@media(min-width:600px){.cardgrid{grid-template-columns:repeat(3,1fr)}}
+
+.subscription{border:1px solid #b88c32;background:linear-gradient(145deg,#2a2111,#111319);box-shadow:0 0 22px #a77b2822}
+.subhead{display:flex;justify-content:space-between;align-items:center}.diamond{font-size:30px}
+.subprice{font-size:30px;font-weight:900;color:var(--gold)}.subprice small{font-size:14px;color:var(--muted);font-weight:500}
+.benefits{padding-left:20px;color:#e5dfd1;line-height:1.8;font-size:14px}
+
+
+.game-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.game-stats div{background:#111319;border:1px solid #55421e;border-radius:10px;padding:9px;text-align:center}
+.game-stats small{display:block;color:#aaa;font-size:10px}.game-stats b{color:var(--gold);font-size:22px}
+#pitch{width:100%;height:auto;display:block;border:1px solid #8b7134;border-radius:12px;background:#164c2d;margin:10px 0}
+.controlrow{display:flex;flex-direction:column;gap:6px;margin:12px 0}.controlrow label{font-size:13px;color:#e9dfc8}
+.controlrow input{width:100%;accent-color:#d9ad46}
+
+</style>
+</head>
+<body>
+<header><div class="logo">1 REAL</div><div class="sub">COLECIONE • EVOLUA • CONQUISTE</div></header>
+<main class="wrap">
+ <section class="balances">
+  <div class="balance">🪙 <b id="coins">500</b><small>Moedas do jogo</small></div>
+  <div class="balance">💎 <b id="gems">100</b><small>Diamantes de demonstração</small></div>
+ </section>
+ <nav>
+  <button onclick="show('home')">Início</button><button onclick="show('game')">Jogar</button><button onclick="show('packs')">Pacotes</button><button onclick="show('collection')">Cartas</button><button onclick="show('missions')">Missões</button>
+ </nav>
+ <section id="home" class="panel">
+  <h2>Bem-vindo ao 1 REAL</h2>
+  <p>Monte sua coleção de futebol, complete missões e abra pacotes para descobrir novas cartas.</p>
+  <div class="tag">VERSÃO DEMONSTRAÇÃO</div>
+  <p class="notice">Este protótipo usa moedas e diamantes fictícios. Nenhuma compra ou pagamento real acontece aqui.</p>
+  <button class="primary" onclick="show('packs')">Abrir pacotes</button>
+ </section>
+
+ <section id="game" class="panel hidden">
+  <h2>Campo de treino</h2>
+  <p class="notice">Escolha um jogador, ajuste a mira e a força e chute ao gol. Os atributos mudam conforme o jogador.</p>
+  <label for="playerPick">Jogador</label>
+  <select id="playerPick" onchange="updatePlayerStats()" style="width:100%;padding:12px;border-radius:10px;background:#20232b;color:#fff;border:1px solid #755b27;margin:7px 0 12px"></select>
+  <div class="game-stats">
+   <div><small>CHUTE</small><b id="shotStat">86</b></div>
+   <div><small>VELOCIDADE</small><b id="speedStat">82</b></div>
+   <div><small>EFEITO</small><b id="curveStat">78</b></div>
+  </div>
+  <canvas id="pitch" width="700" height="420" aria-label="Campo de futebol com gol"></canvas>
+  <div class="controlrow"><label for="aim">Mira: <b id="aimValue">0°</b></label><input id="aim" type="range" min="-35" max="35" value="0" oninput="document.getElementById('aimValue').textContent=this.value+'°'"></div>
+  <div class="controlrow"><label for="power">Força do chute: <b id="powerValue">70%</b></label><input id="power" type="range" min="20" max="100" value="70" oninput="document.getElementById('powerValue').textContent=this.value+'%'"></div>
+  <div class="controlrow"><label for="effect">Efeito da bola</label><select id="effect" style="padding:10px;border-radius:9px;background:#20232b;color:white;border:1px solid #755b27"><option value="normal">Normal</option><option value="curve">Curva</option><option value="power">Chute potente</option></select></div>
+  <button class="primary" style="width:100%;margin-top:10px" onclick="shootBall()">CHUTAR BOLA ⚽</button>
+  <p id="gameResult" class="notice" aria-live="polite">Faça seu primeiro chute ao gol!</p>
+ </section>
+
+ <section id="packs" class="panel hidden">
+  <h2>Pacotes de cartas</h2>
+  <div class="pack"><div><b>Pacote Treino</b><small>Uma carta fictícia • custa 100 moedas</small></div><button class="primary" onclick="openPack('coins')">Abrir</button></div>
+  <div class="pack"><div><b>Pacote Especial</b><small>Uma carta fictícia • custa 20 diamantes</small></div><button onclick="openPack('gems')">Abrir</button></div>
+ </section>
+ <section id="collection" class="panel hidden">
+  <h2>Minha coleção</h2><div id="cards" class="cardgrid"></div><p id="empty" class="notice">Você ainda não tem cartas. Abra um pacote para começar!</p>
+ </section>
+ <section id="missions" class="panel hidden">
+  <h2>Missões diárias</h2>
+  <div class="mission"><div><b>Visite o jogo</b><small>Resgate uma vez nesta demonstração</small></div><button id="dailyBtn" onclick="claimDaily()">+100 🪙</button></div>
+  <div class="mission"><div><b>Abra seu primeiro pacote</b><small>Ganhe moedas depois de abrir um pacote</small></div><button id="packMission" onclick="claimPackMission()">+150 🪙</button></div>
+  <p class="notice">As missões reiniciam quando você limpa os dados do navegador. Nesta versão, o progresso fica salvo neste aparelho.</p>
+ </section>
+ <section id="shop" class="panel">
+  <h2>Loja de demonstração</h2>
+  <div class="storeitem"><div><b>100 diamantes</b><small>Exemplo de pacote</small></div><b>R$ 10,00</b></div>
+  <div class="storeitem"><div><b>300 diamantes</b><small>Exemplo de pacote</small></div><b>R$ 25,00</b></div>
+  <div class="storeitem"><div><b>700 diamantes</b><small>Exemplo de pacote</small></div><b>R$ 50,00</b></div>
+  <div class="storeitem"><div><b>1.500 diamantes</b><small>Exemplo de pacote</small></div><b>R$ 100,00</b></div>
+  <div class="storeitem"><div><b>3.500 diamantes</b><small>Exemplo de pacote</small></div><b>R$ 200,00</b></div>
+  <div class="storeitem"><div><b>6.000 diamantes</b><small>Exemplo de pacote</small></div><b>R$ 300,00</b></div>
+  <p class="notice">Valores ilustrativos. Os botões de pagamento ainda não estão ligados a uma loja real.</p>
+ </section>
+
+ <section class="panel subscription">
+  <div class="subhead"><span class="tag">CLUBE 1 REAL • VIP</span><span class="diamond">💎</span></div>
+  <h2>Assinatura Diamante VIP</h2>
+  <div class="subprice">R$ 59,90 <small>/ semana</small></div>
+  <p><b>Benefícios enquanto a assinatura estiver ativa:</b></p>
+  <ul class="benefits">
+   <li><b>700 diamantes toda semana</b>, enquanto a assinatura estiver ativa</li>
+   <li><b>Missões VIP semanais</b> com recompensas extras de moedas do jogo</li>
+   <li><b>Moldura VIP dourada</b> para o perfil e para exibir nas cartas</li>
+   <li><b>Cosmético exclusivo semanal</b> para personalizar a apresentação da coleção</li>
+   <li><b>Acesso ao álbum VIP</b> com espaço para exibir cartas e itens especiais de cada temporada</li>
+  </ul>
+  <button class="primary" onclick="demoSubscribe()">Ver assinatura (demonstração)</button>
+  <p class="notice"><b>Cobrança:</b> R$ 59,90 por semana, com renovação automática semanal até o cancelamento. A assinatura não é necessária para jogar. O cancelamento pode ser feito na área de assinaturas da Google Play; os benefícios permanecem até o fim do período já pago.</p>
+  <p class="notice">Protótipo: este botão não inicia assinatura, não cobra dinheiro e não entrega benefícios VIP reais. Na versão comercial, os benefícios serão liberados somente após confirmação da compra pela Google Play e controlados por um servidor.</p>
+ </section>
+
+ <p class="notice">Cartas desta versão são personagens fictícios. Nomes, escudos e imagens de atletas reais exigem licenças apropriadas.</p>
+</main>
+<div id="toast"></div>
+<script>
+const roster=[
+ {name:"Rafa Costa",pos:"ATQ",rating:86,shot:90,speed:88,curve:82,rarity:"OURO"},
+ {name:"Davi Rocha",pos:"MEI",rating:82,rarity:"OURO",image:"assets/davi-rocha.jpg"},
+ {name:"Lucas Vale",pos:"ZAG",rating:79,rarity:"PRATA",image:"assets/lucas-vale.jpg"},
+ {name:"Enzo Lima",pos:"GOL",rating:88,rarity:"OURO",image:"assets/enzo-lima.jpg"},
+ {name:"Caio Mendes",pos:"ATA",rating:91,shot:96,speed:93,curve:89,rarity:"LENDÁRIA"},
+ {name:"Theo Alves",pos:"MEI",rating:75,rarity:"PRATA",image:"assets/theo-alves.jpg"}
+];
+let state=JSON.parse(localStorage.getItem("1real-save")||'{"coins":500,"gems":100,"cards":[],"daily":false,"packMission":false,"opened":false}');
+function save(){localStorage.setItem("1real-save",JSON.stringify(state));render()}
+function render(){
+ document.getElementById("coins").textContent=state.coins;
+ document.getElementById("gems").textContent=state.gems;
+ document.getElementById("dailyBtn").disabled=state.daily;
+ document.getElementById("dailyBtn").textContent=state.daily?"Resgatada":" +100 🪙";
+ document.getElementById("packMission").disabled=!state.opened||state.packMission;
+ document.getElementById("packMission").textContent=state.packMission?"Resgatada":"+150 🪙";
+ const cards=document.getElementById("cards");cards.innerHTML="";
+ state.cards.forEach(c=>{const el=document.createElement("div");el.className="playercard";const img=c.image?`<img class="portrait" src="${c.image}" alt="Retrato ilustrativo de ${c.name}">`:`<div class="portrait" style="height:205px;display:grid;place-items:center;font-size:72px;background:linear-gradient(145deg,#3d321c,#101116)">⚽</div>`;el.innerHTML=`${img}<div class="cardtop"><span class="rating">${c.rating}</span><span class="pos">${c.pos}</span></div><div class="cardbottom"><div class="name">${c.name}</div><div class="meta">${c.pos} • 1 REAL</div><span class="tag">${c.rarity}</span></div>`;cards.appendChild(el)});
+ document.getElementById("empty").classList.toggle("hidden",state.cards.length>0);
+}
+function show(id){["home","game","packs","collection","missions"].forEach(x=>document.getElementById(x).classList.add("hidden"));document.getElementById(id).classList.remove("hidden");if(id==="collection")render()}
+function toast(msg){let t=document.getElementById("toast");t.textContent=msg;t.style.display="block";setTimeout(()=>t.style.display="none",2200)}
+function openPack(currency){
+ if(currency==="coins"&&state.coins<100)return toast("Você precisa de 100 moedas.");
+ if(currency==="gems"&&state.gems<20)return toast("Você precisa de 20 diamantes.");
+ if(currency==="coins")state.coins-=100;else state.gems-=20;
+ const c=roster[Math.floor(Math.random()*roster.length)];state.cards.push(c);state.opened=true;save();toast("Nova carta: "+c.name+"!");
+}
+
+function initGame(){
+ const sel=document.getElementById("playerPick"); if(!sel)return;
+ sel.innerHTML="";
+ const available=state.cards.length?state.cards:roster;
+ available.forEach((c,i)=>{const o=document.createElement("option");o.value=String(i);o.textContent=c.name+" — "+c.pos;sel.appendChild(o)});
+ updatePlayerStats();drawPitch();
+}
+function currentPlayer(){
+ const available=state.cards.length?state.cards:roster;
+ return available[Number(document.getElementById("playerPick").value)||0]||roster[0];
+}
+function updatePlayerStats(){
+ const c=currentPlayer();
+ document.getElementById("shotStat").textContent=c.shot||75;
+ document.getElementById("speedStat").textContent=c.speed||75;
+ document.getElementById("curveStat").textContent=c.curve||75;
+}
+function drawPitch(bx=350,by=340){
+ const cv=document.getElementById("pitch");if(!cv)return;
+ const ctx=cv.getContext("2d"),w=cv.width,h=cv.height;
+ ctx.fillStyle="#176336";ctx.fillRect(0,0,w,h);
+ for(let i=0;i<7;i++){ctx.fillStyle=i%2?"#1a6b3a":"#1b713d";ctx.fillRect(i*w/7,0,w/7,h)}
+ ctx.strokeStyle="#e7f1df";ctx.lineWidth=4;ctx.strokeRect(18,18,w-36,h-36);
+ ctx.strokeRect(190,18,320,100);ctx.strokeRect(260,18,180,48);
+ ctx.fillStyle="#ddd";ctx.fillRect(235,12,230,14);ctx.strokeStyle="#fff";ctx.lineWidth=2;ctx.strokeRect(235,12,230,78);
+ for(let x=250;x<455;x+=20){ctx.beginPath();ctx.moveTo(x,13);ctx.lineTo(x,89);ctx.stroke()}
+ for(let y=28;y<90;y+=16){ctx.beginPath();ctx.moveTo(236,y);ctx.lineTo(464,y);ctx.stroke()}
+ ctx.fillStyle="#f0bd42";ctx.beginPath();ctx.arc(350,65,13,0,Math.PI*2);ctx.fill();ctx.fillRect(338,78,24,34);
+ ctx.fillStyle="#fff";ctx.font="bold 15px Arial";ctx.fillText("GOL",325,112);
+ ctx.fillStyle="#fff";ctx.beginPath();ctx.arc(bx,by,12,0,Math.PI*2);ctx.fill();ctx.strokeStyle="#111";ctx.lineWidth=2;ctx.stroke();
+ ctx.beginPath();ctx.moveTo(bx-7,by-6);ctx.lineTo(bx+7,by+6);ctx.moveTo(bx+7,by-6);ctx.lineTo(bx-7,by+6);ctx.stroke();
+}
+function shootBall(){
+ const c=currentPlayer(),aim=Number(document.getElementById("aim").value),power=Number(document.getElementById("power").value),effect=document.getElementById("effect").value;
+ const shot=c.shot||75,curve=c.curve||75,speed=c.speed||75;
+ const strength=Math.min(100,Math.round(power*(0.55+shot/200)));
+ const targetX=350+aim*4.1+(effect==="curve"?(curve-70)*1.1:0);
+ const goal=targetX>245&&targetX<455&&strength>28;
+ const result=document.getElementById("gameResult");
+ result.textContent="Chute de "+c.name+" • Potência "+strength+"/100 • Velocidade "+speed+"/100 • "+(effect==="curve"?"efeito de curva":effect==="power"?"chute potente":"chute normal")+".";
+ let frame=0;const endX=Math.max(60,Math.min(640,targetX));
+ function animate(){
+  frame++;const t=Math.min(1,frame/24),x=350+(endX-350)*t,y=340-285*t-65*Math.sin(Math.PI*t);
+  drawPitch(x,y);
+  const ctx=document.getElementById("pitch").getContext("2d");
+  if(effect==="curve"){ctx.strokeStyle="#ffe28a";ctx.lineWidth=5;ctx.beginPath();ctx.arc(x-13,y-10,16,.2,2.7);ctx.stroke()}
+  if(effect==="power"){ctx.strokeStyle="#ff9b38";ctx.lineWidth=6;ctx.beginPath();ctx.moveTo(x+18,y+10);ctx.lineTo(x+38,y+23);ctx.stroke()}
+  if(t<1)requestAnimationFrame(animate);
+  else{result.textContent=goal?"⚽ GOOOOOL! "+c.name+" acertou o alvo!":"Quase! A bola foi para fora. Ajuste a mira e tente novamente.";drawPitch(endX,55)}
+ }
+ requestAnimationFrame(animate);
+}
+
+function demoSubscribe(){
+ toast("Demonstração: nenhuma cobrança foi realizada. Assinatura ainda não está ativa.");
+}
+function claimDaily(){if(state.daily)return;state.daily=true;state.coins+=100;save();toast("Missão concluída: +100 moedas!")}
+function claimPackMission(){if(!state.opened||state.packMission)return;state.packMission=true;state.coins+=150;save();toast("Recompensa recebida: +150 moedas!")}
+render();
+initGame();
+</script>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch(() => {});
+  });
+}
+</script>
+</body></html>
